@@ -1,4 +1,4 @@
-package com.generalsoft.saveu;
+package com.gs.saveu;
 
 public class Config {
 	public static final String TAG = "SaveU";

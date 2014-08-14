@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">결정적 순간에 사용하게될 앱</string>
+    <string name="app_name">결정적 순간에 사용하게 될 앱</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="stop_btn_text">Stop</string>
-    <string name="description">\&quot;save@ring\&quot;이라는 SMS을 수신하면 알람을 최대 볼륨으로 울리며, Stop 버튼이 눌리기 전까지 지속됩니다.</string>
+    <string name="description">\&quot;save@패스워드@ring\&quot;이라는 SMS를 수신하면 알람을 최대 볼륨으로 울리며, Stop 버튼이 눌리기 전까지 지속됩니다. 초기 패스워드는 "1234"입니다. 패스워드 변경은 설정 메뉴를 사용하세요.</string>
+    <string name="menu_settings">Settings</string>
+    <string name="pref_user_profile">User Profile</string>
+    <string name="pref_user_password">패스워드 설정</string>
+    <string name="pref_user_password_summary">아무나 문자를 보내서 알람을 울리는 장난질을 막기 위해 패스워드를 설정하세요</string>
 
 </resources>

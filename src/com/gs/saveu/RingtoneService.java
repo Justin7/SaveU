@@ -1,4 +1,4 @@
-package com.generalsoft.saveu;
+package com.gs.saveu;
 
 import android.app.Service;
 import android.content.Context;

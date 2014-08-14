@@ -1,12 +1,12 @@
-package com.generalsoft.saveu;
+package com.gs.saveu;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
-import android.util.Log;
-import android.widget.Toast;
 
 public class MessageReceiver extends BroadcastReceiver {
 	Context mContext;
@@ -19,13 +19,13 @@ public class MessageReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		mContext = context;
 		String action = intent.getAction();
-		Log.d(TAG , "onReceive()");
-		/*if (action.equals(INTENT_BT_CHANGED)) {
-			Toast.makeText(context, "Blutooth Change Received",  Toast.LENGTH_SHORT).show();
-			mContext.startService(new Intent(mContext, RingtoneService.class));
-		} else*/ if (action.equals(INTENT_SMS_RECEIVED)) {
-			Toast.makeText(context, "SMS Received",  Toast.LENGTH_SHORT).show();
-
+		/*Log.d(TAG , "onReceive()");
+		if (action.equals(INTENT_BT_CHANGED)) {
+			String msg = "save@1234@ring";
+			if (checkMessage(msg)) {
+				mContext.startService(new Intent(mContext, RingtoneService.class));
+			}
+		} else */if (action.equals(INTENT_SMS_RECEIVED)) {
 			Bundle bundle = intent.getExtras();
 			if (bundle == null) {
 				return;
@@ -42,8 +42,6 @@ public class MessageReceiver extends BroadcastReceiver {
 				messages[i] = SmsMessage.createFromPdu( (byte[])pdusObj[i] );
 				msg = messages[i].getMessageBody();
 			}
-			Toast.makeText(context, msg,  Toast.LENGTH_SHORT).show();
-			
 			if (checkMessage(msg)) {
 				mContext.startService(new Intent(mContext, RingtoneService.class));
 			}
@@ -51,12 +49,22 @@ public class MessageReceiver extends BroadcastReceiver {
 	}
 
 	private boolean checkMessage(String msg) {
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(mContext);
+		String password = sharedPrefs.getString("prefUserPassword", "1234");
+		
 		String message = msg.toLowerCase();
 		if (!message.startsWith(Config.KEYWORD)) {
 			return false;
 		}
 		
-		if (message.endsWith(Config.RING)) {
+		StringBuilder sb = new StringBuilder()
+		.append(Config.KEYWORD)
+		.append(password)
+		.append("@")
+		.append(Config.RING);
+
+		if (message.equals(sb.toString())) {
 			return true;
 		}
 		return false;
